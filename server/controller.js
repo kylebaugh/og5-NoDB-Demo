@@ -38,6 +38,24 @@ const handlerFunctions = {
         TEST_DATA = filteredData
 
         res.send(TEST_DATA)
+    },
+
+    editInvoice: (req, res) => {
+        // get id param
+        const {id} = req.params
+
+        // get description, rate, hours from body object
+        const {description, rate, hours} = req.body
+
+        // find object to change
+        const editJob = TEST_DATA.find((job) => job.id === +id)
+
+        // change object
+        editJob.description = description
+        editJob.rate = rate
+        editJob.hours = hours
+
+        res.send(TEST_DATA)
     }
 
 }

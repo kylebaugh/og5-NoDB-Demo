@@ -16,11 +16,12 @@ app.use(morgan('dev'))
 // ROUTES GO HERE
 
 import handlerFunctions from './controller.js'
-const {getInvoices, addInvoice, deleteInvoice} = handlerFunctions
+const {getInvoices, addInvoice, deleteInvoice, editInvoice} = handlerFunctions
 
 app.get('/invoices', getInvoices)
 app.post('/invoice', addInvoice)
 app.delete('/invoice/:id', deleteInvoice)
+app.put('/invoice/:id', editInvoice)
 
 // Open door to server
 ViteExpress.listen(app, 2319, () => console.log(`We've got a 2319! Report to http://localhost:2319`))

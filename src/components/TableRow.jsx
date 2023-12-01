@@ -5,6 +5,7 @@ import Rate from './Rate.jsx'
 
 import formatCurrency from '../utils/formatCurrency.js';
 import {useState} from 'react'
+import axios from 'axios'
 
 const TableRow = (props) => {
 
@@ -19,18 +20,35 @@ const TableRow = (props) => {
 
   const changeEditMode = () => setIsEditing(true)
   const changeNormalMode = () => {
-    const copyData = [...currentData]
 
-    const indexToChange = copyData.findIndex(el => el.id === initialInvoiceData.id)
-
-    copyData[indexToChange] = {
-      id: initialInvoiceData.id,
+    const bodyObj = {
       description,
       rate,
       hours
     }
 
-    setCurrentData(copyData)
+    axios.put(`/invoice/${initialInvoiceData.id}`, bodyObj)
+      .then((res) => {
+        console.log(res.data)
+        setCurrentData(res.data)
+        setIsEditing(false)
+      })
+      .catch((theseHands) => {
+        console.log(theseHands)
+      })
+
+    // const copyData = [...currentData]
+
+    // const indexToChange = copyData.findIndex(el => el.id === initialInvoiceData.id)
+
+    // copyData[indexToChange] = {
+    //   id: initialInvoiceData.id,
+    //   description,
+    //   rate,
+    //   hours
+    // }
+
+    // setCurrentData(copyData)
   }
 
   return (
